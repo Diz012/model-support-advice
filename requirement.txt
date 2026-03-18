@@ -4,3 +4,5 @@ pandas
 numpy
 catboost
 mysql-connector-python
+thefuzz
+python-Levenshtein
