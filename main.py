@@ -81,6 +81,7 @@ def clean_text(text: str):
 
 def generate_human_advice(risk_string: str):
     reasons = [r.strip() for r in risk_string.split(',')]
+    detected_keys = []
     selected_parts = []
     
     intros = [
