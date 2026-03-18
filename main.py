@@ -2,6 +2,8 @@ import random
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
+from thefuzz import process, fuzz
+import re
 
 # --- 1. KHỞI TẠO APP ---
 app = FastAPI(
@@ -71,6 +73,12 @@ colleague_templates = {
 }
 
 # --- 4. LOGIC XỬ LÝ CHÍNH ---
+def clean_text(text: str):
+    """Xóa bỏ số, ký tự đặc biệt và đưa về chữ thường để chuẩn hóa"""
+    text = text.lower().strip()
+    text = re.sub(r'\d+(\.\d+)?%?', '', text) # Xóa số và %
+    return text
+
 def generate_human_advice(risk_string: str):
     reasons = [r.strip() for r in risk_string.split(',')]
     selected_parts = []
@@ -88,17 +96,25 @@ def generate_human_advice(risk_string: str):
         "Hy vọng sự can thiệp kịp thời của Thầy sẽ giúp em ấy vượt qua giai đoạn này."
     ]
     
-    for r in reasons:
-        # Tìm kiếm tương đối nếu người dùng nhập không khớp hoàn toàn 100%
-        matched = False
-        for key in colleague_templates.keys():
-            if key.lower() in r.lower() or r.lower() in key.lower():
-                selected_parts.append(random.choice(colleague_templates[key]))
-                matched = True
-                break
+    # Danh sách các từ khóa chuẩn trong Knowledge Base
+    standard_keys = list(colleague_templates.keys())
     
+    for r in reasons:
+        cleaned_r = clean_text(r)
+        if not cleaned_r: continue
+        # Tìm từ khóa chuẩn gần giống nhất với từ người dùng nhập
+        # limit=1: lấy 1 kết quả tốt nhất
+        match, score = process.extractOne(cleaned_r, standard_keys, scorer=fuzz.token_set_ratio)
+        
+        # Nếu độ giống nhau > 65%, chấp nhận đó là lý do đó
+        if score > 65:
+            detected_keys.append(match)
+            selected_parts.append(random.choice(colleague_templates[match]))
+    # Loại bỏ các gợi ý trùng lặp nếu có
+    selected_parts = list(dict.fromkeys(selected_parts))
+    detected_keys = list(dict.fromkeys(detected_keys))
     if not selected_parts:
-        return reasons, "Hiện tại mình thấy các chỉ số vẫn ổn, Thầy cứ duy trì theo dõi nhé.", "Low"
+        return reasons, f"Không nhận diện được lý do: {r} (Score: {score})"
     
     # Ghép câu
     full_advice = f"{random.choice(intros)} " + " ".join(selected_parts) + f" {random.choice(outros)}"
@@ -122,6 +138,27 @@ async def predict_advice(input_data: StudentRiskInput):
         "ai_recommendation": advice,
         "priority": priority_level
     }
+
+@app.post("/predict_batch", response_model=List[AdviceResponse], tags=["AI Core"])
+async def predict_batch_advice(input_list: List[StudentRiskInput]):
+    """
+    Endpoint này cho phép gửi một danh sách nhiều sinh viên cùng lúc.
+    Định dạng JSON: [ {student_id: "..."}, {student_id: "..."} ]
+    """
+    results = []
+    
+    for item in input_list:
+        # Gọi lại hàm logic đã viết cho từng sinh viên
+        reasons_list, advice, priority_level = generate_human_advice(item.risk_reasons)
+        
+        results.append({
+            "student_id": item.student_id,
+            "original_risks": reasons_list,
+            "ai_recommendation": advice,
+            "priority": priority_level
+        })
+    
+    return results
 
 # --- CHẠY LOCAL ---
 # Chạy lệnh: uvicorn main:app --reload
