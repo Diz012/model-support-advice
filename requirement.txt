@@ -1,8 +1,4 @@
 fastapi
 uvicorn
-pandas
-numpy
-catboost
-mysql-connector-python
-thefuzz
-levenshtein-search
+pydantic
+google-genai
