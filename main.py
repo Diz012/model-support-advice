@@ -25,13 +25,15 @@ def generate_comprehensive_advice(reasons: str):
     Bạn là một Cố vấn học tập chuyên nghiệp. Hãy phân tích các rủi ro sau: "{reasons}".
     
     Yêu cầu:
-    - Nhận diện TẤT CẢ các vấn đề có trong nội dung trên (dù là ẩn ý).
-    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề đó.
-    - Văn phong hỗ trợ, chuyên nghiệp, dành cho giảng viên cố vấn.
+    - Xác định đúng các vấn đề có trong nội dung trên.
+    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề.
+    - Văn phong hỗ trợ, chuyên nghiệp, ngắn gọn dành cho giảng viên cố vấn.
+    - Số câu tối thiểu là 3 và tối đa là 6.
     
     Cấu trúc phản hồi:
-    1. Danh sách các vấn đề phát hiện.
+    1. Nhắc nhở giảng viên cố vấn.
     2. Lời khuyên chi tiết cho từng điểm.
+    3. Động viên, thúc đẩy giảng viên cố vấn.
     """
     
     try:
