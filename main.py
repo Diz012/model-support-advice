@@ -35,9 +35,9 @@ def generate_comprehensive_advice(reasons: str):
     """
     
     try:
-        # Sử dụng hàm generate mới của thư viện google-genai
+     
         response = client.models.generate_content(
-            model="gemini-2.0-flash", # Hoặc gemini-1.5-flash tùy sở thích của bạn
+            model="gemini-3.1-pro-preview",
             contents=prompt
         )
         return response.text
