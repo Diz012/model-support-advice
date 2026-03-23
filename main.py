@@ -26,9 +26,10 @@ def generate_comprehensive_advice(reasons: str):
     
     Yêu cầu:
     - Xác định đúng các vấn đề có trong nội dung trên.
-    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề.
+    - Nếu có nhiều hơn 3 vấn đề thì lọc ra 3 vấn đề quan trọng nhất
+    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề (đưa ra tối đa 3 lới khuyên). 
     - Văn phong hỗ trợ, chuyên nghiệp, ngắn gọn dành cho giảng viên cố vấn.
-    - Số câu tối thiểu là 3 và tối đa là 6.
+
     
     Cấu trúc phản hồi:
     1. Nhắc nhở giảng viên cố vấn.
