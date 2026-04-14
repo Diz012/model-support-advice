@@ -26,17 +26,11 @@ def generate_comprehensive_advice(reasons: str):
     
     Yêu cầu:
     - Trả về câu mở đầu ngẫu nhiên, phù hợp với nội dung hỗ trợ cố vấn học tập.
-    - Nếu sinh viên có phong độ ổn định thì đưa ra lời khuyên "cố vấn cần quan sát thêm sinh viên này", bỏ qua các yêu cầu bên dưới.
     - Xác định đúng các vấn đề có trong nội dung trên.
-    - Nếu có nhiều hơn 3 vấn đề thì lọc ra 3 vấn đề quan trọng nhất
-    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề. 
+    - Đưa ra lời khuyên cụ thể chi tiết, hành động được ngay cho từng vấn đề. 
     - Văn phong hỗ trợ, chuyên nghiệp, ngắn gọn dành cho giảng viên cố vấn.
     - Không tạo ra các kí hiệu không cần thiết
-    
-    Cấu trúc phản hồi:
-    - Nhắc nhở giảng viên cố vấn.
-    - Lời khuyên chi tiết cho từng điểm.
-    - Động viên, thúc đẩy giảng viên cố vấn.
+    - Phải động viên, thúc đầy tin thần cố vấn
     """
     
     try:
