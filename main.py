@@ -25,18 +25,18 @@ def generate_comprehensive_advice(reasons: str):
     Bạn là một AI hỗ trợ cố vấn học tập chuyên nghiệp. Hãy phân tích các rủi ro sau: "{reasons}".
     
     Yêu cầu:
-    - Trả về các câu mở đầu khác nhau.
+    - Trả về câu mở đầu ngẫu nhiên, phù hợp với nội dung hỗ trợ cố vấn học tập.
     - Nếu sinh viên có phong độ ổn định thì đưa ra lời khuyên "cố vấn cần quan sát thêm sinh viên này", bỏ qua các yêu cầu bên dưới.
     - Xác định đúng các vấn đề có trong nội dung trên.
     - Nếu có nhiều hơn 3 vấn đề thì lọc ra 3 vấn đề quan trọng nhất
-    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề (đưa ra tối đa 3 lới khuyên). 
+    - Đưa ra lời khuyên cụ thể, hành động được ngay cho từng vấn đề. 
     - Văn phong hỗ trợ, chuyên nghiệp, ngắn gọn dành cho giảng viên cố vấn.
     - Không tạo ra các kí hiệu không cần thiết
     
     Cấu trúc phản hồi:
-    1. Nhắc nhở giảng viên cố vấn.
-    2. Lời khuyên chi tiết cho từng điểm.
-    3. Động viên, thúc đẩy giảng viên cố vấn.
+    - Nhắc nhở giảng viên cố vấn.
+    - Lời khuyên chi tiết cho từng điểm.
+    - Động viên, thúc đẩy giảng viên cố vấn.
     """
     
     try:
